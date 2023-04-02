@@ -9,7 +9,7 @@ from lib.helpers import pretty_decimal, to_decimal
 
 class BinanceExchange(BaseExchange):
     NAME = 'Binance Exchange'
-    BASE_URL = 'https://api.binance.com/'
+    BASE_URL = 'https://api.binance.us/'
 
     def get_pair(self):
         return f'{self.config.pair.base.CODE}{self.config.pair.quote.CODE}'

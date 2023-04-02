@@ -215,7 +215,7 @@ class ExchangeClientSession(BaseHttpSession):
 
     def get_pairs_prices(self):
         pairs = list([Pair.get(pt[1]) for pt in PAIRS_LIST])
-        binance_client = BinanceClient(api_key='', api_secret='')
+        binance_client = BinanceClient(api_key='', api_secret='', tld='us')
         # bitstamp_client = BitstampClient()
         binance_pairs_data = {bc['symbol']: bc['price'] for bc in binance_client.get_all_tickers()}
         # bitstamp_pairs_data = bitstamp_client.get_all_tickers()

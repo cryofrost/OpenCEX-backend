@@ -68,7 +68,7 @@ class OtcOrdersUpdater:
             return f'https://www.bitstamp.net/api/v2/ticker/{pair_code}/'
         else:
             symbol = cls._get_ticker_symbol(pair_code)
-        return f'https://api.binance.com/api/v1/trades?symbol={symbol}&limit=1'
+        return f'https://api.binance.us/api/v1/trades?symbol={symbol}&limit=1'
 
     def start(self):
         self.current_price = self.make_price(self.pair, 0)
