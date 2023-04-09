@@ -23,7 +23,7 @@ class BinanceDataSource(BaseDataSource):
         return self._data
 
     def get_latest_prices(self) -> Dict[Pair, Decimal]:
-        binance_client = BinanceClient()
+        binance_client = BinanceClient(tld='us')
         binance_pairs_data = {bc['symbol']: bc['price'] for bc in binance_client.get_all_tickers()}
         pairs_prices = {}
         for pair in PAIRS:

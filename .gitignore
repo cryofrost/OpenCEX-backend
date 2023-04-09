@@ -9,6 +9,7 @@ __pycache__
 .project
 .pydevproject
 *.sqlite3
+.venv
 postgresql
 local_config.js
 local_config_admin.js

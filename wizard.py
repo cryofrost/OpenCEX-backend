@@ -323,8 +323,8 @@ def main():
                             "title": "Explorer"
                         },
                         "official": {
-                            "href": "https://www.binance.com/",
-                            "title": "www.binance.com"
+                            "href": "https://www.binance.us/",
+                            "title": "www.binance.us"
                         }
                     }
                 },

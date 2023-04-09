@@ -17,7 +17,7 @@ class BinanceExchange(BaseExchange):
     def login(self):
         binance_api_key = AESCoderDecoder(settings.CRYPTO_KEY).decrypt(self.config.binance_api_key)
         binance_secret_key = AESCoderDecoder(settings.CRYPTO_KEY).decrypt(self.config.binance_secret_key)
-        self._client = Client(binance_api_key, binance_secret_key)
+        self._client = Client(binance_api_key, binance_secret_key, tld='us')
         self.log.info('Successfully login to Binance Exchange')
 
         data = self._client.get_symbol_info(symbol=self.get_pair())
