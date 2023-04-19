@@ -49,6 +49,9 @@ BNB_RPC_ENDPOINTS = [
     'https://bsc-dataseed1.defibit.io/',
     'https://bsc-dataseed1.ninicoin.io/',
 ]
+FIAT_RPC_ENDPOINTS = [
+    'https://mercadopago.com/',
+]
 
 TRX_NET_FEE = 3_000_000  # 3 TRX
 TRC20_FEE_LIMIT = 100_000_000  # 100 TRX

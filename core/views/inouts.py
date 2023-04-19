@@ -445,8 +445,8 @@ def interaction_dev(request, gate_name):
 
     gate_id = gate_name if gate_name.isdigit() else name2id(gate_name)
 
-    PayGateTopup.update_from_notification(gate_id, data)
-    return Response({'status': True}, status=status.HTTP_200_OK)
+    result = PayGateTopup.update_from_notification(gate_id, data)
+    return Response({'status': True, 'result': result}, status=status.HTTP_200_OK)
 
 
 class TopupRequestView(viewsets.ReadOnlyModelViewSet, viewsets.mixins.CreateModelMixin):

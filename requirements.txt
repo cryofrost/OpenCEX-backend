@@ -230,6 +230,7 @@ pyphen==0.13.0
 pyrsistent==0.18.0
 pysha3==1.0.2
 PySocks==1.7.1
+py-solc-x==1.1.1
 pytest==6.2.5
 pytest-cov==2.12.1
 pytest-django==4.4.0

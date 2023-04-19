@@ -1,5 +1,5 @@
-from core.currency import TokenParams
-from cryptocoins.utils.register import register_token
+# from core.currency import TokenParams
+from cryptocoins.utils.register import register_fiat
 
 MXN = 99
 CODE = 'MXN'
@@ -24,4 +24,4 @@ DECIMALS = 5
 #     ),
 # }
 # USDT_CURRENCY = register_token(USDT, CODE, BLOCKCHAINS)
-MXN_CURRENCY = register_token(MXN, CODE)
+MXN_CURRENCY = register_fiat(MXN, CODE)

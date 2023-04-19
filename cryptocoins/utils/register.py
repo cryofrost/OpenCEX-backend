@@ -106,3 +106,19 @@ def register_token(currency_id, currency_code, blockchains: Optional[Dict[str, T
         ALL_TOKEN_CURRENCIES.append(currency)
 
     return currency
+
+def register_fiat(currency_id, currency_code):
+    currency = Currency(currency_id, currency_code)
+    currency.is_fiat = True
+
+    from sci.wallet.wallet import get_or_create_fiat_wallet
+    print('it was here')
+    CRYPTO_WALLET_CREATORS[currency] = get_or_create_fiat_wallet
+    # address_validators = {}
+    # CRYPTO_ADDRESS_VALIDATORS[currency] = address_validators
+    
+    if currency not in ALL_CURRENCIES:
+        ALL_CURRENCIES.append(currency)
+        CURRENCIES_LIST.append((currency_id, currency_code,))
+    
+    return currency

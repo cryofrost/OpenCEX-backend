@@ -71,7 +71,7 @@ class PayGateTopup(BaseModel, UserMixinModel):
     @classmethod
     def update_from_notification(cls, gate_id, data):
         gate = GATES[gate_id]
-        gate.update_topup(cls, data)
+        return gate.update_topup(cls, data)
 
     def _revert(self):
         from core.utils.wallet_history import create_or_update_wallet_history_item_from_transaction
