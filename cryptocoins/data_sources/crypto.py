@@ -1,8 +1,10 @@
 from decimal import Decimal
 from typing import Dict
 
+import logging
 import requests
 from binance.client import Client as BinanceClient
+from binance import ThreadedWebsocketManager as BinanceWSClient
 from django.conf import settings
 
 from core.cache import cryptocompare_pairs_price_cache
@@ -10,34 +12,74 @@ from core.pairs import Pair, PAIRS
 from cryptocoins.interfaces.datasources import BaseDataSource
 from lib.helpers import to_decimal
 
-
 class BinanceDataSource(BaseDataSource):
     NAME = 'Binance'
     MAX_DEVIATION = settings.EXTERNAL_PRICES_DEVIATION_PERCENTS
 
     def __init__(self):
+        self._all_tickers = []
         self._data: Dict[Pair, Decimal] = {}
+        self.pair_exchange_keys = [f'{pair.base.code}{pair.quote.code}' for pair in PAIRS]
+        self.streams = [f'{x.lower()}@ticker' for x in self.pair_exchange_keys]
+
+        self.client = BinanceWSClient(tld='us')
+        # we need to reconfigure logging to avoid annoying debug messages of ThreadedWebsocketManager
+        # root_log = logging.getLogger()
+        
+        # print(dir(self.client._client), self.client._client_params)
+        # client_log = logging.getLogger(self.client._name)
+        # client_log.setLevel(logging.WARNING)
+        
+        self.client.start()
+
+        self.tp = self.client.start_miniticker_socket(self.update_tickers)
+        self.dp = self.client.start_multiplex_socket(self.update_last_prices, self.streams)
+        # self.limit_counter = 0
 
     @property
     def data(self) -> Dict[Pair, Decimal]:
         return self._data
+    
+    def update_tickers(self, data):
+        if 'e' in data and data['e'] == 'error':
+            self.client.stop_socket(self.tp)
+            self.tp = self.client.start_miniticker_socket(self.update_tickers)
+        else:
+            known_tickers = self._all_tickers
+            self._all_tickers = list(set(known_tickers + [x['s'] for x in data]))
+            
+    
+    def update_last_prices(self, data):
+        if 'e' in data and data['e'] == 'error':
+            self.client.stop_socket(self.dp)
+            self.dp = self.client.start_multiplex_socket(self.update_last_prices, self.streams)
+        else:
+            update = data['data']
+            if 's' in update:
+                pair = PAIRS[self.pair_exchange_keys.index(update['s'])]
+                self._data[pair] = to_decimal(update['c'])
 
     def get_latest_prices(self) -> Dict[Pair, Decimal]:
-        binance_client = BinanceClient(tld='us')
-        binance_pairs_data = {bc['symbol']: bc['price'] for bc in binance_client.get_all_tickers()}
-        pairs_prices = {}
-        for pair in PAIRS:
-            pair_exchange_key = f'{pair.base.code}{pair.quote.code}'
-            if pair_exchange_key in binance_pairs_data:
-                pairs_prices[pair] = to_decimal(binance_pairs_data[pair_exchange_key])
-        self._data = pairs_prices
-        return pairs_prices
+        # log.debug('get_latest_prices')
+        # binance_client = BinanceClient(tld='us')
+        # if self.limit_counter < 100:
+        #     binance_pairs_data = {bc['symbol']: bc['price'] for bc in binance_client.get_all_tickers()}
+        #     pairs_prices = {}
+        #     for pair in PAIRS:
+        #         pair_exchange_key = f'{pair.base.code}{pair.quote.code}'
+        #         if pair_exchange_key in binance_pairs_data:
+        #             pairs_prices[pair] = to_decimal(binance_pairs_data[pair_exchange_key])
+        #             log.debug(f'pairs_prices: {pairs_prices}')
+        #     self._data = pairs_prices
+        #     self.limit_counter += 1
+        return self._data
 
     def is_pair_exists(self, pair_symbol) -> bool:
-        binance_client = BinanceClient()
-        binance_pairs = [bc['symbol'] for bc in binance_client.get_all_tickers()]
+        # binance_client = BinanceClient(tld='us')
+        # binance_pairs = [bc['symbol'] for bc in binance_client.get_all_tickers()]
         base, quote = pair_symbol.split('-')
-        return f'{base}{quote}' in binance_pairs
+        # return f'{base}{quote}' in binance_pairs
+        return f'{base}{quote}' in self._all_tickers
 
 
 

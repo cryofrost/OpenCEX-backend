@@ -1,6 +1,6 @@
 import pytest
 
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 
 from lib.helpers import to_decimal, normalize_data
 
@@ -18,7 +18,7 @@ class TestToDecimal:
         assert to_decimal(0.1) * to_decimal(0.1) == to_decimal(0.01)
         assert to_decimal(10.01) * to_decimal(10.01) == to_decimal(100.2001)
 
-        with pytest.raises(ValueError):
+        with pytest.raises(InvalidOperation):
             assert to_decimal('some string') == Decimal('0')
 
 

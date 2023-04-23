@@ -5,12 +5,13 @@ from rest_framework import status
 from core.models.orders import Order
 from .client import Client
 
-USERNAME = 'admin@admin.com'
-PASSWORD = 'admin'
+USERNAME = 'jefe@cryptolatam.pro'
+PASSWORD = 'qKCmQaefMF'
 
-OWN_ORDERS_URL = '/api/public/orders'
-ORDER_URL = '/api/public/order/'
-UPDATE_ORDER_URL = '/api/public/order/update'
+# OWN_ORDERS_URL = '/api/public/orders'
+OWN_ORDERS_URL = '/api/v1/allorders'
+ORDER_URL = '/api/v1/allorders/'
+UPDATE_ORDER_URL = '/api/public/v1/order/update'
 
 
 def test_create_limit_order():
@@ -184,7 +185,7 @@ def test_update_limit_order():
 
     # create buy order
     order_data = {
-        'pair': 'BTC-USD',
+        'pair': 'BTC-USDT',
         'type': Order.ORDER_TYPE_LIMIT,
         'operation': Order.OPERATION_BUY,
         'quantity': 0.001,
@@ -193,7 +194,8 @@ def test_update_limit_order():
 
     # not authorized
     res = c.post(ORDER_URL, data=order_data)
-    assert res.status_code == status.HTTP_403_FORBIDDEN
+    # assert res.status_code == status.HTTP_403_FORBIDDEN
+    assert res.status_code == status.HTTP_401_UNAUTHORIZED
 
     # authorized
     c.login(USERNAME, PASSWORD)

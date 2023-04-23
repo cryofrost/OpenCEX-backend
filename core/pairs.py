@@ -12,8 +12,8 @@ PAIRS = []
 PAIRS_LIST = [
     (BTC_USDT, 'BTC-USDT'),
     (ETH_USDT, 'ETH-USDT'),
-    (TRX_USDT, 'TRX-USDT'),
-    (BNB_USDT, 'BNB-USDT'),
+    # (TRX_USDT, 'TRX-USDT'),
+    # (BNB_USDT, 'BNB-USDT'),
 ]
 
 pairs_ids_values = [(p[0], p[1]) for p in PAIRS_LIST]

@@ -41,7 +41,8 @@ class Client:
             'username': username,
             'password': password,
         })
-        self.token = result.json().get('key')
+        print('login result:', result.json())
+        self.token = result.json().get('access_token')
         self.session.headers['Authorization'] = f'Token {self.token}'
 
         # hmac auth
@@ -62,6 +63,7 @@ class Client:
             headers['apikey'] = self.api_key
             headers['nonce'] = nonce
             headers['signature'] = self._generate_signature(nonce)
+            
 
         return headers
 
@@ -70,7 +72,9 @@ class Client:
 
     def _generate_signature(self, nonce):
         return hmac.new(
-            self.secret_key.encode('utf-8'),
-            msg=bytes(self.api_key + nonce, 'latin-1'),
+            # self.secret_key.encode('utf-8'),
+            self.secret_key.encode(),
+            # msg=bytes(self.api_key + nonce, 'latin-1'),
+            msg=bytes(self.api_key + nonce, 'utf-8'),
             digestmod=hashlib.sha256
         ).hexdigest().upper()

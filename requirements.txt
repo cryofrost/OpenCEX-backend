@@ -234,7 +234,7 @@ py-solc-x==1.1.1
 pytest==6.2.5
 pytest-cov==2.12.1
 pytest-django==4.4.0
-python-binance==1.0.12
+python-binance>=1.0.12
 python-bitcoinrpc==1.0
 python-dateutil==2.8.2
 python-Levenshtein==0.12.2

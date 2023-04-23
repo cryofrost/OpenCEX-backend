@@ -4,7 +4,7 @@ from rest_framework import status
 from .client import Client
 
 
-OTC_PRICE_URL = '/api/public/bfxprice'
+OTC_PRICE_URL = '/api/public/v1/otcprice?pair=BTC-USDT'
 
 
 def test_otc_price():
