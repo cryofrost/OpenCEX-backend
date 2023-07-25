@@ -1,0 +1,120 @@
+{
+    "status": true,
+    "result": {
+        "id": 1314890361,
+        "date_created": "2023-05-13T23:51:55.303-04:00",
+        "date_approved": null,
+        "date_last_updated": "2023-05-13T23:51:55.303-04:00",
+        "date_of_expiration": "2023-05-18T23:51:55.349-04:00",
+        "money_release_date": null,
+        "money_release_status": null,
+        "operation_type": "regular_payment",
+        "issuer_id": "2017",
+        "payment_method_id": "oxxo",
+        "payment_type_id": "ticket",
+        "payment_method": {
+            "id": "oxxo",
+            "type": "ticket",
+            "issuer_id": "2017",
+            "data": {},
+            "forward_data": {
+                "ticket_number": "",
+                "agreement_number": ""
+            }
+        },
+        "status": "pending",
+        "status_detail": "pending_waiting_payment",
+        "currency_id": "MXN",
+        "description": "payer: {'email': 'info@cryptolatam.pro', 'first_name': 'test', 'last_name': 'test'}, amount: 100",
+        "live_mode": false,
+        "sponsor_id": null,
+        "authorization_code": null,
+        "money_release_schema": null,
+        "taxes_amount": 0,
+        "counter_currency": null,
+        "brand_id": null,
+        "shipping_amount": 0,
+        "build_version": "2.142.4",
+        "pos_id": null,
+        "store_id": null,
+        "integrator_id": null,
+        "platform_id": null,
+        "corporation_id": null,
+        "payer": {
+            "first_name": null,
+            "last_name": null,
+            "email": "test_user_80507629@testuser.com",
+            "identification": {
+                "number": "32659430",
+                "type": "DNI"
+            },
+            "phone": {
+                "area_code": null,
+                "number": null,
+                "extension": null
+            },
+            "type": null,
+            "entity_type": null,
+            "id": "1373777896"
+        },
+        "collector_id": 1044069535,
+        "marketplace_owner": null,
+        "metadata": {
+            "payment_point": "oxxo"
+        },
+        "additional_info": {
+            "available_balance": null,
+            "nsu_processadora": null,
+            "authentication_code": null
+        },
+        "order": {},
+        "external_reference": null,
+        "transaction_amount": 100,
+        "transaction_amount_refunded": 0,
+        "coupon_amount": 0,
+        "differential_pricing_id": null,
+        "financing_group": null,
+        "deduction_schema": null,
+        "barcode": {
+            "content": "78000000600354463718052300100005",
+            "width": 1,
+            "height": 30,
+            "type": "Code128C"
+        },
+        "installments": 1,
+        "transaction_details": {
+            "payment_method_reference_id": "6003544637",
+            "acquirer_reference": "",
+            "verification_code": "78000000600354463718052300100005",
+            "net_received_amount": 0,
+            "total_paid_amount": 100,
+            "overpaid_amount": 0,
+            "external_resource_url": "https://www.mercadopago.com.mx/sandbox/payments/1314890361/ticket?caller_id=1373777896&payment_method_id=oxxo&payment_id=1314890361&payment_method_reference_id=6003544637&hash=1aee1e9a-a0ea-450a-9a53-d84a8db9fa88",
+            "installment_amount": 0,
+            "financial_institution": "",
+            "payable_deferral_period": null
+        },
+        "fee_details": [],
+        "charges_details": [],
+        "captured": true,
+        "binary_mode": false,
+        "call_for_authorize_id": null,
+        "statement_descriptor": null,
+        "card": {},
+        "notification_url": null,
+        "refunds": [],
+        "processing_mode": "aggregator",
+        "merchant_account_id": null,
+        "merchant_number": null,
+        "acquirer_reconciliation": [],
+        "point_of_interaction": {
+            "type": "UNSPECIFIED",
+            "business_info": {
+                "unit": "online_payments",
+                "sub_unit": "sdk"
+            }
+        },
+        "accounts_info": null,
+        "tags": null
+    }
+}

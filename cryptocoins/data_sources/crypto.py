@@ -3,9 +3,22 @@ from typing import Dict
 
 import logging
 import requests
-from binance.client import Client as BinanceClient
-from binance import ThreadedWebsocketManager as BinanceWSClient
+# from binance.client import Client as BinanceClient
+# root_log = logging.getLogger()
+# current_level = root_log.level
+# root_log.setLevel(logging.INFO)
+# root_log.setLevel(current_level)
+
 from django.conf import settings
+
+if settings.DEBUG:
+# we need to reconfigure logging to avoid annoying debug messages of ThreadedWebsocketManager
+    settings.DEBUG = False
+    from binance import ThreadedWebsocketManager as BinanceWSClient
+    settings.DEBUG = True
+else:
+    from binance import ThreadedWebsocketManager as BinanceWSClient
+    
 
 from core.cache import cryptocompare_pairs_price_cache
 from core.pairs import Pair, PAIRS
@@ -22,18 +35,25 @@ class BinanceDataSource(BaseDataSource):
         self.pair_exchange_keys = [f'{pair.base.code}{pair.quote.code}' for pair in PAIRS]
         self.streams = [f'{x.lower()}@ticker' for x in self.pair_exchange_keys]
 
-        self.client = BinanceWSClient(tld='us')
-        # we need to reconfigure logging to avoid annoying debug messages of ThreadedWebsocketManager
-        # root_log = logging.getLogger()
+        
         
         # print(dir(self.client._client), self.client._client_params)
         # client_log = logging.getLogger(self.client._name)
         # client_log.setLevel(logging.WARNING)
         
+        self.client = BinanceWSClient(tld='us')
         self.client.start()
-
         self.tp = self.client.start_miniticker_socket(self.update_tickers)
         self.dp = self.client.start_multiplex_socket(self.update_last_prices, self.streams)
+
+        # if settings.DEBUG:
+        # # we need to reconfigure logging to avoid annoying debug messages of ThreadedWebsocketManager
+        #     level = logging.INFO
+        #     logger = logging.getLogger()
+        #     # curr_level = logger.level
+        #     logger.setLevel(level)
+        #     for handler in logger.handlers:
+        #         handler.setLevel(level)
         # self.limit_counter = 0
 
     @property

@@ -6,7 +6,7 @@ from django.core.cache import cache
 from web3 import Web3
 from web3.middleware import geth_poa_middleware
 
-from lib.notifications import send_telegram_message
+# from lib.notifications import send_telegram_message
 
 FIAT_PROVIDERS_CACHE = 'FIAT_PROVIDERS_CACHE'
 FIAT_RESPONSE_TIME_COUNTER_CACHE = 'FIAT_RESPONSE_TIME_COUNTER'

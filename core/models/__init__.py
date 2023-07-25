@@ -1,3 +1,4 @@
+from core.models.fiat import UserFiatWallet
 from core.models.cryptocoins import UserWallet
 from core.models.facade import AccessLog
 from core.models.facade import ExpiringToken
@@ -36,6 +37,7 @@ from core.models.stats import UserPairDailyStat
 from core.models.wallet_history import WalletHistoryItem
 
 __all__ = [
+    'UserFiatWallet',
     'UserWallet',
     'AccessLog',
     'ExpiringToken',

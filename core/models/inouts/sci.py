@@ -67,7 +67,7 @@ class PayGateTopup(BaseModel, UserMixinModel):
     @property
     def topup_url(self):
         return self.gate.topup_url(self)
-
+    
     @classmethod
     def update_from_notification(cls, gate_id, data):
         gate = GATES[gate_id]

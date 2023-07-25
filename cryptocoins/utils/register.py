@@ -111,11 +111,8 @@ def register_fiat(currency_id, currency_code):
     currency = Currency(currency_id, currency_code)
     currency.is_fiat = True
 
-    from sci.wallet.wallet import get_or_create_fiat_wallet
-    print('it was here')
-    CRYPTO_WALLET_CREATORS[currency] = get_or_create_fiat_wallet
-    # address_validators = {}
-    # CRYPTO_ADDRESS_VALIDATORS[currency] = address_validators
+    from sci.wallet.wallet import fiat_wallet_creation_wrapper
+    CRYPTO_WALLET_CREATORS[currency] = fiat_wallet_creation_wrapper
     
     if currency not in ALL_CURRENCIES:
         ALL_CURRENCIES.append(currency)

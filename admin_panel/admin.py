@@ -1476,9 +1476,9 @@ class UserRestrictionsAdmin(NoAddMixIn, BaseModelAdmin):
 @admin.register(PayGateTopup)
 class PayGateTopupAdmin(NoAddMixIn, ReadOnlyMixin, BaseModelAdmin):
     list_display = ('created', 'user', 'currency', 'amount', 'tx_amount',
-                    'sci_gate', 'state_colored', 'status_colored',)
+                    'sci_gate', 'state_colored', 'status_colored','tx_link')
     fields = ('tx_link', 'user', 'currency', 'amount', 'tx_amount', 'sci_gate',
-              'our_fee_amount', 'state_colored', 'status_colored', 'pretty_data',)
+              'our_fee_amount', 'state_colored', 'status_colored', 'pretty_data')
     readonly_fields = ('tx', 'tx_link', 'user', 'currency', 'amount', 'tx_amount', 'state_colored',
                        'status_colored', 'sci_gate', 'our_fee_amount', 'pretty_data',)
 
